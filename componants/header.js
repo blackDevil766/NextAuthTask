@@ -48,19 +48,19 @@ const Header2 = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setPageState((old) => ({ ...old, processing: false, error: "" }));
       });
   };
 
-  console.log(authState);
+  // console.log(authState);
   const { data: session, status, user } = useSession();
 
-  if (status === "authenticated") {
-    const token = session.user;
-  } else {
-    console.log(status);
-  }
+  // if (status === "authenticated") {
+  //   const token = session.user;
+  // } else {
+  //   console.log(status);
+  // }
 
   const [openSignUp, setOpenSignUp] = useState(false);
   const handleOpen = () => setOpenSignUp(true);

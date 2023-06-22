@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { useDispatch, useSelector } from "react-redux/";
 import { ADD_PRODUCT, GET_PRODUCT } from "../componants/redux/actions/type";
 
-export default function Home({ producty }) {
+export default function Home() {
 
   // const [items, setItems] = useState()
   // const fetcher = async () => {
@@ -14,9 +14,10 @@ export default function Home({ producty }) {
   //  const product = datas.products
   //   return product;
   // };
-  // const { data, error, isLoading } = useSWR("products", fetcher);
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data, error, isLoading } = useSWR("https://dummyjson.com/products", fetcher);
 
-  // console.log(data);
+  console.log(data);
 
 
   const dispatch = useDispatch();
@@ -29,10 +30,10 @@ export default function Home({ producty }) {
 
   return (
     <>
-      {producty.map((product) => {
+      {data?.products.map((product) => {
 
         return (
-          <div className="product-contain" key={product.key}>
+          <div className="product-contain" key={product.id}>
             <h1>{product.title}</h1>
             <img src={product.images[0]} />
 
@@ -44,15 +45,15 @@ export default function Home({ producty }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch(`https://dummyjson.com/products`);
-  const data = await res.json();
-  const producty = data.products;
-  return {
-    props: {
-      producty,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch(`https://dummyjson.com/products`);
+//   const data = await res.json();
+//   const producty = data.products;
+//   return {
+//     props: {
+//       producty,
+//     },
+//   };
+// }
 
 Home.Layouts = "L2";
